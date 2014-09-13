@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
-SESSION_ENGINE = 'mongoengine.django.sessions'
+#SESSION_ENGINE = 'mongoengine.django.sessions'
 ROOT_URLCONF = 'pond.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
