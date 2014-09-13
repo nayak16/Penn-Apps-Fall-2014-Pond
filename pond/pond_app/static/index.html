@@ -94,9 +94,9 @@
         maxTop = theContainer.height() - theDiv.height,
         leftPos = Math.floor(Math.random() * maxLeft),
         topPos = Math.floor(Math.random() * maxTop);
-        theDiv.animate({"left": 300px,"top": 300px}, "slow");
-     
-      theDiv.animate({width:100},"slow",startAnimation);
+        console.error("leftPos: %d",leftPos);
+
+        theDiv.animate({"left": 300,"top": 300}, "slow");
     }
 
     </script>

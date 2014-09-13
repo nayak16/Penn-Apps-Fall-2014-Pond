@@ -35,6 +35,8 @@ html,body {
     border-radius: 50%;
     border: solid;
     border-color: black;
+    background: url("../images/rocks.jpg");
+    background-size: cover;
 
 }
 .title{
