@@ -24,7 +24,7 @@ class FileUpload(models.Model):
     expiration_time = models.DateTimeField()
     file = models.FileField(storage=gridfs, upload_to='/')
     author = models.ForeignKey(UserProfile)
-    location = EmbededModelField(Location)
+    location = EmbeddedModelField(Location)
     radius_meters = models.FloatField()
     is_protected = models.BooleanField()
     password = models.CharField(max_length=255)
