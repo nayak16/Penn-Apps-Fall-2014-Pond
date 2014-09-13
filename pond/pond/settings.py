@@ -113,7 +113,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-
+DEFAULT_FILE_STORAGE = 'storages.backends.mongodb.GridFSStorage'
+GRIDFS_DATABASE = 'default'
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,9 +122,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
     'pond_app',
     'djangotoolbox',
     'django_mongodb_engine',
+    'filetransfers'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

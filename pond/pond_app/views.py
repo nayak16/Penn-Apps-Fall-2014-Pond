@@ -8,12 +8,30 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
-from pond_app.models import Location, FileUpload, UserProfile
+from pond_app.models import *
+from pond_app.forms import *
 from mimetypes import guess_type
 
 # from gridfsuploads import gridfs_storage
 import gridfs
 from gridfs.errors import NoFile
+
+
+from filetransfers.api import prepare_upload, serve_file
+
+def upload_handler(request):
+    view_url = reverse('upload.views.upload_handler')
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(view_url)
+
+    upload_url, upload_data = prepare_upload(request, view_url, private=True)
+    form = UploadForm()
+    return direct_to_template(request, 'upload/upload.html',
+        {'form': form, 'upload_url': upload_url, 'upload_data': upload_data,
+         'uploads': UploadModel.objects.all()})
 
 def serve_from_gridfs(request,id):
 
@@ -33,6 +51,6 @@ def home(request):
     error=[]
     context["errors"]=error
 
-    return render(request,'index.html', context)
+    return render(request,'test.html', context)
 
 
