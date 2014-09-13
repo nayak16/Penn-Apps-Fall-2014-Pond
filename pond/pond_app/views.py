@@ -32,5 +32,7 @@ def home(request):
     context={}
     error=[]
     context["errors"]=error
-    return render(request,'../static/index.html', context)
+
+    return render(request,'index.html', context)
+
 
