@@ -1,3 +1,4 @@
+
 function getNearbyFiles() {
 	$.ajax({
 		method: "GET",
