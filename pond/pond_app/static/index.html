@@ -31,6 +31,7 @@
 }
     </style>
   
+  	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -52,14 +53,19 @@
  					<h1 class="title">P O N D</h1>	
  					<img id="logo" src="images/mace.png"></img>
  				</div> 	
+ 			 <div class="col-md-6 col-md-offset-12"> 
+   				<button class="btn btn-primary btn-lg upload-button" data-toggle="modal" data-target="#uploadModal" align = "center">
+      				Upload!
+    			</button>
+    		</div>
  			</div>
  		</div>
- 		<div class="row">		
- 			<div class="pond col-md-6 col-sm-4 col-centered" id="drop2">
- 				<div class="files">
- 				</div>
+ 		<div class="row">
+ 			<canvas id="water">
+ 			
 
- 			</div>
+ 			</canvas>
+ 			
  		</div>
  		<div class="row">
  			<div class="col-md-6 col-centered">
@@ -71,32 +77,136 @@
 
                </input>
    			</div>	
+   		
  		</div>
  		<img class="file" src="images/thumbnail.png"> </img>
 
  	</div>
 
 
+
+ 	<!-- Upload Modal -->
+ 	<!-- Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+          </div>
+
+    <form method="post" class="dropzone form-horizontal" id="my-awesome-dropzone">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend>Plop Your File into the Pond</legend>
+
+    <!-- File Button --> 
+    <!--<form action="/file-upload"
+      class="dropzone"
+      id="my-awesome-dropzone"></form> -->
+
+        <div class="fallback">
+            <input name="file" id="dragdrop" type="file" multiple/>
+        </div>
+       
+       <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="username">Name</label>  
+      <div class="col-md-4">
+        <input id="username" name="usernameupload" type="text" placeholder="Name of Uploader" class="form-control input-md" required="">
+      <span class="help-block">Enter your name</span>  
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="filename">File Name</label>  
+      <div class="col-md-4">
+      <input id="filename" name="filename" type="text" placeholder="Name of File" class="form-control input-md" required="">
+      <span class="help-block">Enter file name</span>  
+      </div>
+    </div>
+
+    <!-- Text input-->
+  <div class="form-group">
+  <label class="col-md-4 control-label" for="Lifetime">Lifetime</label>
+  	<div class="col-md-5">
+    	<div class="input-group">
+      	<input id="Lifetime" name="Lifetime" class="form-control" placeholder="Number" type="text" required="">
+      	<div class="input-group-btn">
+        	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Time
+        	  <span class="caret"></span>
+        	</button>
+        		<ul class="dropdown-menu pull-right">
+          			<li><a href="#">Minutes</a></li>
+          			<li><a href="#">Hours</a></li>
+        		</ul>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password">Password</label>
+      <div class="col-md-4">
+        <input id="password" name="password" type="password" placeholder="Optional" class="form-control input-md">
+        <span class="help-block">Enter the password for your file</span>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="submit"></label>
+      <div class="col-md-4">
+        <input type="submit" value="Plop">
+      </div>
+    </div>
+
+    </fieldset>
+    </form>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ./Upload Modal -->
+
   
     <!-- jQuery Version 1.11.0 -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
+    
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/drag-drop.js"></script>
+    <!-- <script src="js/drag-drop.js"></script> -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="js/googlemaps.js"></script>
+    <script src="js/dropzone.js"></script>
 
     <script src="js/pond.js"></script>
-
+    <script src="js/vector2d.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/waterfall.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-  	var theDiv = $(".file");
-  	var theContainer = $('.pond');
+  	var theDiv = $(".file").position();
+  	var theContainer = $('.pond').position();
     startAnimation();
     function startAnimation(){
-    	  var  maxLeft = theContainer.width() - theDiv.width,
+    	  var  maxLeft = theContainer.top - theDiv.top,
         maxTop = theContainer.height() - theDiv.height,
         leftPos = Math.floor(Math.random() * maxLeft),
         topPos = Math.floor(Math.random() * maxTop);
-        console.error("leftPos: %d",leftPos);
+        console.error("leftPos: %d",maxTop);
 
         theDiv.animate({"left": 300,"top": 300}, "slow");
+        theDiv.animate({"left": 400,"top": 300}, "slow",startAnimation);
+
     }
 
     </script>
