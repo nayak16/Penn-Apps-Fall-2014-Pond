@@ -5,8 +5,10 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+
 
     <title>POND</title>
 
@@ -19,10 +21,16 @@
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <style type="text/css">
 
+
+.file {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+}
+    </style>
+  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -47,7 +55,11 @@
  			</div>
  		</div>
  		<div class="row">		
- 			<div class="col-md-6 col-sm-4 col-centered" id="pond"></div>
+ 			<div class="pond col-md-6 col-sm-4 col-centered" id="drop2">
+ 				<div class="files">
+ 				</div>
+
+ 			</div>
  		</div>
  		<div class="row">
  			<div class="col-md-6 col-centered">
@@ -60,16 +72,53 @@
                </input>
    			</div>	
  		</div>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+
  	</div>
 
 
   
     <!-- jQuery Version 1.11.0 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/watercanvas.js"></script>
+    <script src="js/drag-drop.js"></script>
+
     <script src="js/pond.js"></script>
 
+    <script type="text/javascript">
+  	var theDiv = $(".file");
+  	var theContainer = $('.pond');
+    startAnimation();
+    function startAnimation(){
+    	  var  maxLeft = theContainer.width() - theDiv.width,
+        maxTop = theContainer.height() - theDiv.height,
+        leftPos = Math.floor(Math.random() * maxLeft),
+        topPos = Math.floor(Math.random() * maxTop);
+        theDiv.animate({"left": 300px,"top": 300px}, "slow");
+     
+      theDiv.animate({width:100},"slow",startAnimation);
+    }
+
+    </script>
+  <!--  <script type="text/javascript">
+  
+    function AnimateIt(theDiv, theContainer) {
+     var  maxLeft = theContainer.width() - theDiv.width,
+        maxTop = theContainer.height() - theDiv.height,
+        leftPos = Math.floor(Math.random() * maxLeft),
+        topPos = Math.floor(Math.random() * maxTop);
+        console.log("once");
+    
+  
+   		theDiv.animate({
+        "left": leftPos,
+        "top": topPos
+    	});
+	}
+	var theDiv = $('.file');
+	var theContainer = $('.pond');
+	setInterval(function(){AnimateIt(theDiv,theContainer);}, 2000);
+    </script> -->
 
     
 

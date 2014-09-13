@@ -9,6 +9,7 @@ function getNearbyFiles() {
 				var filename = file.filename;
 				var author = file.author;
 				var isProtected = file.isProtected;
+				var type = file.type;
 
 
 				var button = document.createElement("input");
