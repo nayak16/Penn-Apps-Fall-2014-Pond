@@ -1,0 +1,20 @@
+input[type=submit] {
+    width: 160px;  height: 50px;
+}
+
+input[type=file] {
+    width: 160px;  height: 50px;
+}
+
+.col-centered{
+	float: none;
+	margin: 0 auto;
+}
+
+.mytext {
+    width: 100px;
+    top: 200px;
+}
+#myModal{
+	text-align:center;
+}
