@@ -22,9 +22,13 @@ class Location(models.Model):
 class FileUpload(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     expiration_time = models.DateTimeField()
-    file = models.FileField(storage=gridfs, upload_to='/')
+    file = models.FileField(storage=gridfs, upload_to='/pond_storage')
     author = models.ForeignKey(UserProfile)
     location = EmbeddedModelField(Location)
     radius_meters = models.FloatField()
     is_protected = models.BooleanField()
     password = models.CharField(max_length=255)
+
+    @property
+    def filename(self):
+        return self.file.name.rsplit('/', 1)[-1]

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load filetransfers %}
 <head>
 
     <meta charset="utf-8">
@@ -34,7 +34,7 @@
 </head>
 
 <body>
-
+<!--
     <script>
         var x = document.getElementById("demo");
         function getLocation() {
@@ -51,8 +51,8 @@
     </script>
 
     <button onclick="getLocation()">Try It</button>
-
-    <!-- Button trigger modal -->
+    <p id="demo"></p>
+   
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#uploadModal" align = "center">
       Upload!
     </button>
@@ -61,11 +61,11 @@
       Download!
     </button>
 
-    <!-- form to display file info. Not sure what the animation should be tied to -->
+  form to display file info. Not sure what the animation should be tied to 
     <form class="form-horizontal">
 <fieldset>
 
-<!-- Form Name -->
+
     <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -75,7 +75,7 @@
           </div>
     <legend>Download</legend>
 
-    <!-- Text input-->
+   
     <div class="form-group">
       <label class="col-md-4 control-label" for="filename">File Name</label>  
       <div class="col-md-4">
@@ -84,7 +84,7 @@
       </div>
     </div>
 
-    <!-- Text input-->
+    
     <div class="form-group">
       <label class="col-md-4 control-label" for="usernamedownload">User Name</label>  
       <div class="col-md-4">
@@ -93,7 +93,6 @@
       </div>
     </div>
 
-    <!-- Button -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="submitdowload"></label>
       <div class="col-md-4">
@@ -107,9 +106,9 @@
       </div>
     </div>
 
-    <!-- end of animation -->
+   
 
-    <!-- Modal -->
+   
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -117,14 +116,14 @@
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title" id="myModalLabel"></h4>
           </div>
-
-    <form class="form-horizontal" method="post">
+-->
+    <form class="form-horizontal" method="post" action="/upload/{{upload_url}}" enctype="multipart/form-data" >
     <fieldset>
 
-    <!-- Form Name -->
+   
     <legend>Upload!</legend>
 
-    <!-- File Button --> 
+    <!-- File Button 
     <div class="form-group">
       <label class="col-md-4 control-label" for="filebutton">File Button</label>
       <div class="col-md-4">
