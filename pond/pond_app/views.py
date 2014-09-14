@@ -14,6 +14,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.contrib.gis.utils import GeoIP
 
 
 from pond_app.forms import *
@@ -23,6 +24,13 @@ from pond_app.models import *
 from filetransfers.api import prepare_upload, serve_file
 
 def upload_handler(request):
+ ######## Get User's IP ################
+    g = GeoIP()
+    client_ip = request.META['REMOTE_ADDR']
+    lat,long = g.lat_lon(client_ip)
+    print lat,long
+
+
     view_url = reverse('pond_app.views.upload_handler')
     if request.method == 'POST':
         print request.POST
@@ -55,11 +63,6 @@ def delete_handler(request, pk):
 
 
 
-def home(request):
-    context={}
-    error=[]
-    context["errors"]=error
-    return render(request,'index.html', context)
 """
 
 def remove_if_expired(file_upload):
