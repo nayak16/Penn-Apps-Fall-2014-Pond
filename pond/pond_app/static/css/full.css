@@ -25,6 +25,8 @@ html,body {
     
 }
 
+
+
 .pond { 
     margin-top: -7vh;
     width: 80%;
@@ -35,11 +37,23 @@ html,body {
     border-radius: 50%;
     border: solid;
     border-color: green;
-    background: url("../images/rocks.jpg");
     opacity: 0.3;
     filter: alpha(opacity=40);
     background-size: cover;
 
+}
+#water {
+    margin-top: 0vh;
+    position: relative;
+    bottom: 10vh;
+    width:100%;
+    height:80vh;
+    opacity: 0.5;
+
+    display: block;
+    margin:0px auto;
+    cursor:pointer;
+    border-radius: 50%;
 }
 .title{
     display: inline-block;
@@ -64,10 +78,16 @@ html,body {
     right: 6vw;
     
 }
-
 /*Search Bar CSS */
 input.search-bar{
        border: 2px solid;
        border-radius: 25px;
-       margin-top: 10px;
+       margin-top: -8vh;
+}
+.upload-button{
+    margin-left: 200%;
+    position: relative;
+    bottom: 12vh;
+    left: 8vw;
+    
 }

@@ -2,7 +2,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+import os
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -19,7 +19,9 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
+#PREPARE_UPLOAD_BACKEND = 'filetransfers.backends.default.prepare_upload'
+#SERVE_FILE_BACKEND = 'filetransfers.backends.default.serve_file'
+#PUBLIC_DOWNLOAD_URL_BACKEND = 'filetransfers.backends.default.public_download_url'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -49,19 +51,19 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT=os.path.dirname(os.path.dirname(__file__))+ "/media/"
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
-
+STATIC_ROOT = 'static/'
+MEDIA_URL='/media/'
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
@@ -99,6 +101,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django_geoip.middleware.LocationMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -108,13 +111,18 @@ ROOT_URLCONF = 'pond.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'pond.wsgi.application'
 
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-DEFAULT_FILE_STORAGE = 'storages.backends.mongodb.GridFSStorage'
+PREPARE_UPLOAD_BACKEND = 'filetransfers.backends.default.prepare_upload'
+SERVE_FILE_BACKEND = 'filetransfers.backends.default.serve_file'
+PUBLIC_DOWNLOAD_URL_BACKEND = 'filetransfers.backends.default.public_download_url'
+#DEFAULT_FILE_STORAGE = 'storages.backends.mongodb.GridFSStorage'
 GRIDFS_DATABASE = 'default'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,13 +134,14 @@ INSTALLED_APPS = (
     'pond_app',
     'djangotoolbox',
     'django_mongodb_engine',
-    'filetransfers'
+    'filetransfers',
+    'django.contrib.gis.utils',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
-
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 # A sample logging configuration. The only tangible logging

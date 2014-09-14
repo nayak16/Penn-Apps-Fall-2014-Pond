@@ -1,8 +1,9 @@
 from django.db import models
-from django_mongodb_engine.storage import GridFSStorage
+#from django_mongodb_engine.storage import GridFSStorage
 from djangotoolbox.fields import EmbeddedModelField
+from django_geoip.models import GeoLocationFacade
 
-gridfs = GridFSStorage()
+#gridfs = GridFSStorage()
 
 # Create your models here.
 from django.contrib.auth.models import User
@@ -19,16 +20,43 @@ class Location(models.Model):
         longitude = models.FloatField()
 
 
-class FileUpload(models.Model):
-    created_on = models.DateTimeField(auto_now_add=True)
-    expiration_time = models.DateTimeField()
-    file = models.FileField(storage=gridfs, upload_to='/pond_storage')
-    author = models.ForeignKey(UserProfile)
-    location = EmbeddedModelField(Location)
-    radius_meters = models.FloatField()
-    is_protected = models.BooleanField()
-    password = models.CharField(max_length=255)
+class Geo(GeoLocationFacade):
+    """ Location is almost equivalent of geographic City.
+        Major difference is that only locations
+        from this model are returned by high-level API, so you can
+        narrow down the list of cities you wish to display on your site.
+    """
+    name = models.CharField(max_length=100)
+    
+    is_default = models.BooleanField(default=False)
 
-    @property
-    def filename(self):
-        return self.file.name.rsplit('/', 1)[-1]
+    @classmethod
+    def get_by_ip_range(cls, ip_range):
+        """ IpRange has one to many relationship with Country, Region and City.
+            Here we exploit the later relationship."""
+        return cls.objects.get(is_default=True)
+
+    @classmethod
+    def get_default_location(cls):
+        return cls.objects.get(is_default=True)
+
+    @classmethod
+    def get_available_locations(cls):
+        return cls.objects.all()
+
+class FileUpload(models.Model):
+	title = models.CharField(max_length=64, blank=True)
+	#created_on = models.DateTimeField(auto_now_add=True)
+	#expiration_time = models.DateTimeField(auto_now_add=True)
+	file = models.FileField(upload_to='uploads/%Y/%m/%d/%H/%M/%S/')
+	#author = models.ForeignKey(UserProfile,null=True)
+	#location = EmbeddedModelField(Location, null=True)
+	#radius_meters = models.FloatField(null=True)
+	#is_protected = models.NullBooleanField(null=True)
+	#password = models.CharField(max_length=255)
+
+
+
+	@property
+	def filename(self):
+		return self.file.name.rsplit('/', 1)[-1]
