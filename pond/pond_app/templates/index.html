@@ -13,12 +13,12 @@
     <title>POND</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/static/css/full.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/static/css/style.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/full.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@
 }
     </style>
   
-    
+  	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,51 +45,54 @@
 
 <body>
     <!-- Navigation -->
-    <p id="demo"></p>
-
+    
 
     <!-- Put your page content here! -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="header">
-          <h1 class="title">P O N D</h1>  
-          <img id="logo" src="/static/images/mace.png"></img>
-        </div>  
-       <div class="col-md-6 col-md-offset-12"> 
-          <button class="btn btn-primary btn-lg upload-button" data-toggle="modal" data-target="#uploadModal" align = "center">
-              Upload!
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <canvas id="water">
-      
-
-      </canvas>
-      
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-centered">
-         <input type="search"
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="col-md-6">
+ 				<div class="header">
+ 					<h1 class="title">P O N D</h1>	
+ 					<img id="logo" src="images/mace.png"></img>
+ 				</div> 	
+ 			 <div class="col-md-6 col-md-offset-12"> 
+   				<a data-toggle="modal" data-target="#uploadModal" class="upload-button">
+ 				 <img src="images/drop.png">
+				</a>
+    		</div>
+ 			</div>
+ 		</div>
+ 		<div class="row">
+ 			<!-- <canvas id="water"></canvas> -->
+ 			<div class="col-md-6 col-centered pond" >
+ 				
+ 			</div>
+ 			
+ 		</div>
+ 		<div class="row">
+ 			<div class="col-md-6 col-centered">
+			   <input type="search"
                class="search-bar form-control glyphicon glyphicon-search"
                placeholder="Search">
 
-         <span ></span>           
+			   <span ></span>        		
 
                </input>
-        </div>  
-      
-    </div>
-    <img class="file" src="/static/images/thumbnail.png"> </img>
+   			</div>	
+   		
+ 		</div>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
 
-  </div>
+ 	</div>
 
 
 
-  <!-- Upload Modal -->
-  <!-- Modal -->
+ 	<!-- Upload Modal -->
+ 	<!-- Modal -->
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -117,7 +120,7 @@
 
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="username">Name</label>  
+      <label class="col-md-4 control-label" for="username" >Name</label>  
       <div class="col-md-4">
         <input id="username" name="usernameupload" type="text" placeholder="Name of Uploader" class="form-control input-md" required="">
       <span class="help-block">Enter your name</span>  
@@ -136,22 +139,39 @@
     <!-- Text input-->
   <div class="form-group">
   <label class="col-md-4 control-label" for="Lifetime">Lifetime</label>
-    <div class="col-md-5">
-      <div class="input-group">
-        <input id="Lifetime" name="Lifetime" class="form-control" placeholder="Number" type="text" required="">
-        <div class="input-group-btn">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+  	<div class="col-md-5">
+    	<div class="input-group">
+      	<input id="Lifetime" name="Lifetime" class="form-control" placeholder="Number" type="text" required="">
+      	<div class="input-group-btn">
+        	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           Time
-            <span class="caret"></span>
-          </button>
-            <ul class="dropdown-menu pull-right">
-                <li><a href="#">Minutes</a></li>
-                <li><a href="#">Hours</a></li>
-            </ul>
-            </div>
-        </div>
-      </div>
+        	  <span class="caret"></span>
+        	</button>
+        		<ul class="dropdown-menu pull-right">
+          			<li><a href="#">Minutes</a></li>
+          			<li><a href="#">Hours</a></li>
+        		</ul>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	 <form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<!-- Appended Input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Radius">Appended Text</label>
+  <div class="col-md-5">
+    <div class="input-group">
+      <input id="Radius" name="Radius" class="form-control" placeholder="Minimum 100" type="text">
+      <span class="input-group-addon">Feet</span>
+    </div>
+    <p class="help-block">Optional</p>
   </div>
+</div>
+</fieldset>
+</form>
 
 
     <!-- Password input-->
@@ -185,32 +205,60 @@
   
     <!-- jQuery Version 1.11.0 -->
     
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
-    <script src="/static/js/bootstrap.min.js"></script>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
+    <script src="js/bootstrap.min.js"></script>
     <!-- <script src="js/drag-drop.js"></script> -->
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="/static/js/googlemaps.js"></script>
-    <script src="/static/js/dropzone.js"></script>
+    <script src="js/googlemaps.js"></script>
+    <script src="js/dropzone.js"></script>
 
-    <script src="/static/js/pond.js"></script>
-    <script src="/static/js/vector2d.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/js/waterfall.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/pond.js"></script>
+    <script src="js/vector2d.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/waterfall.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-    var theDiv = $(".file").position();
-    var theContainer = $('.pond').position();
+    /*
+    var divEl = $(".file");
+  	var theDiv = divEl.position();
+  	var theContainer = $('.pond').position();
     startAnimation();
     function startAnimation(){
-        var  maxLeft = theContainer.top - theDiv.top,
-        maxTop = theContainer.height() - theDiv.height,
+    	var  maxTop = theContainer.width - theDiv.top,
+        maxLeft = theContainer.left - theDiv.left,
         leftPos = Math.floor(Math.random() * maxLeft),
         topPos = Math.floor(Math.random() * maxTop);
         console.error("leftPos: %d",maxTop);
 
-        theDiv.animate({"left": 300,"top": 300}, "slow");
-        theDiv.animate({"left": 400,"top": 300}, "slow",startAnimation);
+        divEl.animate({"left": 300,"top": 300}, "slow");
+        divEl.animate({"left": 400,"top": 300}, "slow",startAnimation);
 
     }
+    */
+    </script>
+    <script type="text/javascript">
+    $(".file").each(
+	function(intIndex) {
+		var offset = 1000.0;
+		var l = Math.floor(Math.random() * (($(".pond").width() + $(".pond").position().left - offset) - $(".pond").position().left + offset) + $(".pond").position().left);
+		var t = Math.floor(Math.random() * (($(".pond").height() + $(".pond").position().top - offset) - $(".pond").position().top + offset) + $(".pond").position().top);
+
+		$(this).css("left", l);
+		$(this).css("top", t);
+	});	
+   	var timeout;
+    function moveAimlessly() {
+    	
+        $(".file").each(function() {
+        	var t = Math.floor(Math.random()*2) == 1 ? "+=" + Math.floor(Math.random()*41).toString() : "-=" + Math.floor(Math.random()*41).toString();
+    		var l = Math.floor(Math.random()*2) == 1 ? "+=" + Math.floor(Math.random()*41).toString() : "-=" + Math.floor(Math.random()*41).toString();
+            $(this).stop().animate({
+                top: t,
+                left: l
+            }, 2000);
+        });
+        timeout = setTimeout(moveAimlessly, 2000);
+    }
+    moveAimlessly();
 
     </script>
   <!--  <script type="text/javascript">
@@ -223,59 +271,18 @@
         console.log("once");
     
   
-      theDiv.animate({
+   		theDiv.animate({
         "left": leftPos,
         "top": topPos
-      });
-  }
-  var theDiv = $('.file');
-  var theContainer = $('.pond');
-  setInterval(function(){AnimateIt(theDiv,theContainer);}, 2000);
+    	});
+	}
+	var theDiv = $('.file');
+	var theContainer = $('.pond');
+	setInterval(function(){AnimateIt(theDiv,theContainer);}, 2000);
     </script> -->
 
-
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/static/js/bootstrap.min.js"></script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="/static/js/googlemaps.js"></script>
-    <script src="/static/js/dropzone.js"></script>
-
-    
-
-    <div class="columns">
-      <div id="content" class="column">
-        {% block content-header %}
-          {% if error %}<div class="error">{{ error }}</div>{% endif %}
-          {% if info %}<div class="info">{{ info }}</div>{% endif %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="info">{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endblock %}
-
-        {% block content %}{% endblock %}
-      </div>
-
-      <div id="sidebar" class="column">
-        {% block sidebar %}
-        {% endblock %}
-      </div>
-    </div>
-
-    <div id="footer">
-      <p>Powered by <a href="http://www.allbuttonspressed.com/projects/django-nonrel">Django-nonrel</a> and <a href="http://www.allbuttonspressed.com/projects/django-filetransfers">django-filetransfers</a> for file upload and download handling</p>
-    </div>
     
 
 </body>
 
 </html>
-
-
-
-
-
-
