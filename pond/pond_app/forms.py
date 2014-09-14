@@ -1,6 +1,8 @@
 from django import forms
-from pond_app.models import FileUpload
+from pond_app.models import *
 
 class UploadForm(forms.ModelForm):
     class Meta:
         model = FileUpload
+        exclude=[u'expiration_time',u'location']
+        

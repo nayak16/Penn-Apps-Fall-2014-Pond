@@ -1,4 +1,8 @@
+import multiprocessing
 import re
+import time
+import datetime
+import json
 
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
@@ -7,50 +11,102 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
-from pond_app.models import *
-from pond_app.forms import *
-from mimetypes import guess_type
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
-# from gridfsuploads import gridfs_storage
-import gridfs
-from gridfs.errors import NoFile
+
+
+from pond_app.forms import *
+from pond_app.models import *
 
 
 from filetransfers.api import prepare_upload, serve_file
 
+<<<<<<< HEAD
+def get_nearby(request, lat, lon):
+    here = {'latitude' : lat, 'longtitude' : lon}
+    
+    nearest=FileUpload.objects.raw_query({'location':{'$near':here}})
+    context={ 'uploads': nearest}
+    return render(request,"upload.html",context)
+
+def upload_no_location(request):
+	pass
+
+def upload_handler(request, lat, lon):
+    assert(request.method == 'POST')
+    form = UploadForm(request.POST, request.FILES)
+    if form.is_valid():
+        form.save()
+    return HttpResponseRedirect("/home")
+    upload_url, upload_data = prepare_upload(request, "/upload/")
+=======
 def upload_handler(request):
-    view_url = reverse('upload.views.upload_handler')
+ ######## Get User's IP ################
+    g = GeoIP()
+    client_ip = request.META['REMOTE_ADDR']
+    lat,long = g.lat_lon(client_ip)
+    print lat,long
+
+
+    view_url = reverse('pond_app.views.upload_handler')
     if request.method == 'POST':
+        print request.POST
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
+            print "Gets here"
             form.save()
         return HttpResponseRedirect(view_url)
 
-    upload_url, upload_data = prepare_upload(request, view_url, private=True)
+    # upload_url, upload_data = prepare_upload(request, view_url, private=True)
+    upload_url, upload_data = prepare_upload(request, view_url)
+
+>>>>>>> 02b2fd597abbd22e3c4bc7d9d058b0cff65e2b40
     form = UploadForm()
-    return direct_to_template(request, 'upload/upload.html',
+    return render(request, 'upload.html',
         {'form': form, 'upload_url': upload_url, 'upload_data': upload_data,
-         'uploads': UploadModel.objects.all()})
+         'uploads': FileUpload.objects.all()})
 
-def serve_from_gridfs(request,id):
+    upload_url, upload_data = prepare_upload(request, view_url)
 
-    try:
-        gridfile=gridfs_storage.open(path)
-    except NoFile:
-        raise Http404
-    else:
-        return HttpResponse(gridfile,mimetype=guess_type(path)[0])
+def download_handler(request, pk):
+    upload = get_object_or_404(FileUpload, pk=pk)
+    return serve_file(request, upload.file, save_as=True)
 
-
-#def upload_to_gridfs(request,path):
-
+def delete_handler(request, pk):
+    if request.method == 'POST':
+        upload = get_object_or_404(FileUpload, pk=pk)
+        upload.file.delete()
+        upload.delete()
+<<<<<<< HEAD
+        return HttpResponse(json.dumps({'deleted': 'true'}), content_type='application/json')
 
 def home(request):
-    context={}
-    error=[]
-    context["errors"]=error
+	form = UploadForm()
+	context={'form':form}
+	return render(request, 'home.html', context)
+=======
+    return HttpResponseRedirect(reverse('pond_app.views.upload_handler'))
+>>>>>>> 02b2fd597abbd22e3c4bc7d9d058b0cff65e2b40
 
-    return render(request,'test.html', context)
+"""
+def remove_if_expired(file_upload):
+    if file_upload.expiration_time > datetime.datetime.now():
+        os.remove(file_upload.file.filename)
 
+def remove_expired_files():
+    map(remove_if_expired, FileUpload.objects.all())
 
+def wait_for_files_to_expire():
+    seconds = 1
+    while True:
+        print 'Checking'
+        time.sleep(seconds)
+        try:
+            remove_expired_files()
+        except:
+            pass
+
+"""

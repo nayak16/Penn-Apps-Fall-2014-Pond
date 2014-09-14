@@ -1,0 +1,11 @@
+{% load filetransfers %}
+{% block content %}
+{% for upload in uploads %}
+    <li id="listi{{upload.pk}}">
+      {% url 'pond_app.views.download_handler' pk=upload.pk as fallback_url %}
+      <a href="{% firstof upload.file|public_download_url fallback_url %}">{% firstof upload.title 'unnamed' %} - {{ upload.filename }}</a>
+      ({{ pond_app.file.size|filesizeformat }})
+      <input type="button" value="Delete" ct="{% csrf_token %}" id="del{{upload.pk}}" onclick="deleteFile('{{upload.pk }}')"></input>
+    </li>
+  {% endfor %}
+{% endblock %}
