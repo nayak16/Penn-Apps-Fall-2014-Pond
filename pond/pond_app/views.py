@@ -25,9 +25,10 @@ from pond_app.models import *
 from filetransfers.api import prepare_upload, serve_file
 
 def get_nearby(request, lat, lon):
-    print "get nearby called motherfucka"
+    here = {'latitude' : lat, 'longtitude' : lon}
     
-    context={ 'uploads': FileUpload.objects.all()}
+    nearest=FileUpload.objects.raw_query({'location':{'$near':here}})
+    context={ 'uploads': nearest}
     return render(request,"upload.html",context)
 
 def upload_no_location(request):
