@@ -24,6 +24,7 @@ from pond_app.models import *
 
 from filetransfers.api import prepare_upload, serve_file
 
+<<<<<<< HEAD
 def get_nearby(request, lat, lon):
     here = {'latitude' : lat, 'longtitude' : lon}
     
@@ -41,6 +42,28 @@ def upload_handler(request, lat, lon):
         form.save()
     return HttpResponseRedirect("/home")
     upload_url, upload_data = prepare_upload(request, "/upload/")
+=======
+def upload_handler(request):
+ ######## Get User's IP ################
+    g = GeoIP()
+    client_ip = request.META['REMOTE_ADDR']
+    lat,long = g.lat_lon(client_ip)
+    print lat,long
+
+
+    view_url = reverse('pond_app.views.upload_handler')
+    if request.method == 'POST':
+        print request.POST
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            print "Gets here"
+            form.save()
+        return HttpResponseRedirect(view_url)
+
+    # upload_url, upload_data = prepare_upload(request, view_url, private=True)
+    upload_url, upload_data = prepare_upload(request, view_url)
+
+>>>>>>> 02b2fd597abbd22e3c4bc7d9d058b0cff65e2b40
     form = UploadForm()
     return render(request, 'upload.html',
         {'form': form, 'upload_url': upload_url, 'upload_data': upload_data,
@@ -57,15 +80,18 @@ def delete_handler(request, pk):
         upload = get_object_or_404(FileUpload, pk=pk)
         upload.file.delete()
         upload.delete()
+<<<<<<< HEAD
         return HttpResponse(json.dumps({'deleted': 'true'}), content_type='application/json')
 
 def home(request):
 	form = UploadForm()
 	context={'form':form}
 	return render(request, 'home.html', context)
+=======
+    return HttpResponseRedirect(reverse('pond_app.views.upload_handler'))
+>>>>>>> 02b2fd597abbd22e3c4bc7d9d058b0cff65e2b40
 
 """
-
 def remove_if_expired(file_upload):
     if file_upload.expiration_time > datetime.datetime.now():
         os.remove(file_upload.file.filename)
@@ -84,4 +110,3 @@ def wait_for_files_to_expire():
             pass
 
 """
-
