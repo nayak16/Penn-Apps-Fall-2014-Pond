@@ -18,14 +18,14 @@ class FileUpload(models.Model):
 	created_on = models.DateTimeField(auto_now_add=True)
 	expiration_time = models.IntegerField()
 	file = models.FileField(upload_to='pond_collections/')
-	#author = models.ForeignKey(UserProfile,null=True)
+	author = models.ForeignKey(UserProfile,null=True)
 	location = EmbeddedModelField(Location, null=True)
-	#radius_meters = models.FloatField(null=True)
-	#is_protected = models.NullBooleanField(null=True)
-	#password = models.CharField(max_length=255)
+	radius_meters = models.FloatField(null=True)
+	is_protected = models.NullBooleanField(null=True)
+	password = models.CharField(max_length=255)
 	objects=MongoDBManager()
-
-
+	access_count = models.IntegerField()
+	file_type = models.CharField(max_length=8)
 
 	@property
 	def filename(self):
