@@ -4,5 +4,5 @@ from pond_app.models import *
 class UploadForm(forms.ModelForm):
     class Meta:
         model = FileUpload
-        exclude=[u'expiration_time',u'location']
+        exclude=[u'location']
         
