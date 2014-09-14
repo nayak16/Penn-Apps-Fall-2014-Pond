@@ -1,7 +1,6 @@
 from django.db import models
 #from django_mongodb_engine.storage import GridFSStorage
 from djangotoolbox.fields import EmbeddedModelField
-from django_geoip.models import GeoLocationFacade
 
 #gridfs = GridFSStorage()
 
@@ -20,35 +19,11 @@ class Location(models.Model):
         longitude = models.FloatField()
 
 
-class Geo(GeoLocationFacade):
-    """ Location is almost equivalent of geographic City.
-        Major difference is that only locations
-        from this model are returned by high-level API, so you can
-        narrow down the list of cities you wish to display on your site.
-    """
-    name = models.CharField(max_length=100)
-    
-    is_default = models.BooleanField(default=False)
-
-    @classmethod
-    def get_by_ip_range(cls, ip_range):
-        """ IpRange has one to many relationship with Country, Region and City.
-            Here we exploit the later relationship."""
-        return cls.objects.get(is_default=True)
-
-    @classmethod
-    def get_default_location(cls):
-        return cls.objects.get(is_default=True)
-
-    @classmethod
-    def get_available_locations(cls):
-        return cls.objects.all()
-
 class FileUpload(models.Model):
 	title = models.CharField(max_length=64, blank=True)
 	#created_on = models.DateTimeField(auto_now_add=True)
 	#expiration_time = models.DateTimeField(auto_now_add=True)
-	file = models.FileField(upload_to='uploads/%Y/%m/%d/%H/%M/%S/')
+	file = models.FileField(upload_to='pond_collections/')
 	#author = models.ForeignKey(UserProfile,null=True)
 	#location = EmbeddedModelField(Location, null=True)
 	#radius_meters = models.FloatField(null=True)

@@ -1,0 +1,59 @@
+
+{% extends 'index.html' %}
+{% load filetransfers %}
+{% block title %}Upload file to Blobstore{% endblock %}
+
+{% block content %}
+<h1>Upload</h1>
+<form id="uploadform" action="/upload/" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+  <table>{{ form }}</table>
+  <input type="submit" value="Upload" />
+</form>
+
+<h1>Files</h1>
+<ul id="filelist">
+</ul>
+
+<script>
+$(function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            $('#uploadform').attr('action', '/upload/'+ lat.toString() + '/' + lon.toString()+"/");
+            var url = '/get_nearby/' + lat.toString()+'/' + lon.toString()+"/"; 
+            console.log("url",url);
+            $.ajax({
+                method: "GET",
+                url: url,
+                dataType: "html",
+                success: function(data) {
+                    $('#filelist').html(data);
+            }}).fail(function(error) {
+
+                console.log("fuck", error);
+            });
+        });
+    } else {
+        $('#filelist').html('<li>Geolocation is not supported</li>');
+    }
+});
+function deleteFile(pk) {
+    $('#del' + pk).attr('value', "Deleting...");
+    $('#del' + pk).click(function() { });
+    var ct = $('#del' + pk).attr('ct');
+    var csrf = ct.substr(ct.indexOf('value=')+7, ct.indexOf('/>') - ct.indexOf('value=')-9)
+    $.ajax({
+        method: 'POST',
+        url: '/delete/' + pk,
+        data: {'csrfmiddlewaretoken': csrf},
+        success: function() {
+            $('#listi' + pk).remove();
+        }
+    })
+}
+</script>
+
+{% endblock %}

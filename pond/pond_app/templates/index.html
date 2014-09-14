@@ -45,21 +45,8 @@
 
 <body>
     <!-- Navigation -->
-    
-    <script>
-        var x = document.getElementById("demo");
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude + 
-            "<br>Longitude: " + position.coords.longitude; 
-        }
-    </script>
+    <p id="demo"></p>
+
 
     <!-- Put your page content here! -->
   <div class="container">
@@ -246,15 +233,14 @@
   setInterval(function(){AnimateIt(theDiv,theContainer);}, 2000);
     </script> -->
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="googlemaps.js"></script>
-    <script src="dropzone.js"></script>
+    <script src="/static/js/googlemaps.js"></script>
+    <script src="/static/js/dropzone.js"></script>
 
     
 

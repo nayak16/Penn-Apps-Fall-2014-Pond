@@ -18,9 +18,12 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^admin/', include(admin.site.urls)),
-
-    url(r'^upload/$', upload_handler),
-   (r'^download/(?P<pk>.+)$', download_handler),
+    url(r'^home/$',home),
+    url(r'^upload/$', upload_no_location),
+    url(r'^upload/(?P<lat>.+)/(?P<lon>.+)/$', upload_handler),
+    url(r'^get_nearby/(?P<lat>.+)/(?P<lon>.+)/$', get_nearby),
+    # url(r'^upload/$', upload_handler),
+    (r'^download/(?P<pk>.+)$', download_handler),
     (r'^delete/(?P<pk>.+)$', delete_handler),
 ) 
 
