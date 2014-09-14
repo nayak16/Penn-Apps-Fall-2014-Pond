@@ -27,6 +27,7 @@ def upload_handler(request):
             form.save()
         return HttpResponseRedirect(view_url)
 
+    print 'hello'
     upload_url, upload_data = prepare_upload(request, view_url, private=True)
     form = UploadForm()
     return direct_to_template(request, 'upload/upload.html',
