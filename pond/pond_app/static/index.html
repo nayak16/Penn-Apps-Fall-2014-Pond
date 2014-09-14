@@ -16,6 +16,8 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+        <link href="css/style.css" rel="stylesheet">
+
     <link href="css/full.css" rel="stylesheet">
 
     <!-- Fonts -->
@@ -54,17 +56,17 @@
  					<img id="logo" src="images/mace.png"></img>
  				</div> 	
  			 <div class="col-md-6 col-md-offset-12"> 
-   				<button class="btn btn-primary btn-lg upload-button" data-toggle="modal" data-target="#uploadModal" align = "center">
-      				Upload!
-    			</button>
+   				<a data-toggle="modal" data-target="#uploadModal" class="upload-button">
+ 				 <img src="images/drop.png">
+				</a>
     		</div>
  			</div>
  		</div>
  		<div class="row">
- 			<canvas id="water">
- 			
-
- 			</canvas>
+ 			<!-- <canvas id="water"></canvas> -->
+ 			<div class="col-md-6 col-centered pond" >
+ 				
+ 			</div>
  			
  		</div>
  		<div class="row">
@@ -79,6 +81,10 @@
    			</div>	
    		
  		</div>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
+ 		<img class="file" src="images/thumbnail.png"> </img>
  		<img class="file" src="images/thumbnail.png"> </img>
 
  	</div>
@@ -114,7 +120,7 @@
 
     <!-- Text input-->
     <div class="form-group">
-      <label class="col-md-4 control-label" for="username">Name</label>  
+      <label class="col-md-4 control-label" for="username" >Name</label>  
       <div class="col-md-4">
         <input id="username" name="usernameupload" type="text" placeholder="Name of Uploader" class="form-control input-md" required="">
       <span class="help-block">Enter your name</span>  
@@ -149,6 +155,23 @@
     		</div>
   		</div>
 	</div>
+	 <form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<!-- Appended Input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Radius">Appended Text</label>
+  <div class="col-md-5">
+    <div class="input-group">
+      <input id="Radius" name="Radius" class="form-control" placeholder="Minimum 100" type="text">
+      <span class="input-group-addon">Feet</span>
+    </div>
+    <p class="help-block">Optional</p>
+  </div>
+</div>
+</fieldset>
+</form>
 
 
     <!-- Password input-->
@@ -194,20 +217,48 @@
     <script src="js/vector2d.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/waterfall.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-  	var theDiv = $(".file").position();
+    /*
+    var divEl = $(".file");
+  	var theDiv = divEl.position();
   	var theContainer = $('.pond').position();
     startAnimation();
     function startAnimation(){
-    	  var  maxLeft = theContainer.top - theDiv.top,
-        maxTop = theContainer.height() - theDiv.height,
+    	var  maxTop = theContainer.width - theDiv.top,
+        maxLeft = theContainer.left - theDiv.left,
         leftPos = Math.floor(Math.random() * maxLeft),
         topPos = Math.floor(Math.random() * maxTop);
         console.error("leftPos: %d",maxTop);
 
-        theDiv.animate({"left": 300,"top": 300}, "slow");
-        theDiv.animate({"left": 400,"top": 300}, "slow",startAnimation);
+        divEl.animate({"left": 300,"top": 300}, "slow");
+        divEl.animate({"left": 400,"top": 300}, "slow",startAnimation);
 
     }
+    */
+    </script>
+    <script type="text/javascript">
+    $(".file").each(
+	function(intIndex) {
+		var offset = 1000.0;
+		var l = Math.floor(Math.random() * (($(".pond").width() + $(".pond").position().left - offset) - $(".pond").position().left + offset) + $(".pond").position().left);
+		var t = Math.floor(Math.random() * (($(".pond").height() + $(".pond").position().top - offset) - $(".pond").position().top + offset) + $(".pond").position().top);
+
+		$(this).css("left", l);
+		$(this).css("top", t);
+	});	
+   	var timeout;
+    function moveAimlessly() {
+    	
+        $(".file").each(function() {
+        	var t = Math.floor(Math.random()*2) == 1 ? "+=" + Math.floor(Math.random()*41).toString() : "-=" + Math.floor(Math.random()*41).toString();
+    		var l = Math.floor(Math.random()*2) == 1 ? "+=" + Math.floor(Math.random()*41).toString() : "-=" + Math.floor(Math.random()*41).toString();
+            $(this).stop().animate({
+                top: t,
+                left: l
+            }, 2000);
+        });
+        timeout = setTimeout(moveAimlessly, 2000);
+    }
+    moveAimlessly();
 
     </script>
   <!--  <script type="text/javascript">

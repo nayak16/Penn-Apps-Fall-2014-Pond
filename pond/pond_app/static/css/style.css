@@ -1,0 +1,59 @@
+input[type=submit] {
+    width: 160px;  height: 50px;
+}
+
+input[type=file] {
+    width: 160px;  height: 50px;
+}
+
+.col-centered{
+	float: none;
+	margin: 0 auto;
+}
+
+.mytext {
+    width: 100px;
+    top: 200px;
+}
+#myModal{
+	text-align:center;
+}
+
+#uploadButton {
+    position:relative;
+    display:inline-block;
+    text-align:center;
+    border:1px solid red;
+}
+
+.button {
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    width:100px;
+    height:30px;
+}
+
+#map-canvas  {
+  margin: 0;
+  padding: 50px;
+  height: 100%;
+}
+
+#map-canvas {
+  width:500px;
+  height:480px;
+  margin-left: 40px;
+}
+
+#dragdrop{
+	height:100px; 
+	width:500px; 
+	left:50px;
+	position: relative;
+}
+.dz-message span {
+    padding-left: 260px;
+    position: relative;
+    top: -60px;
+}

@@ -18,6 +18,14 @@ html,body {
     background-size: cover;
     -o-background-size: cover;
 }
+label, span, legend{
+    font-family: 'Poiret One', cursive;
+
+}
+legend{
+    font-weight: bold;
+    text-align: center;
+}
 
 .col-centered{
     float: none;
@@ -28,8 +36,8 @@ html,body {
 
 
 .pond { 
-    margin-top: -7vh;
-    width: 80%;
+    margin-top: -25vh;
+    width: 100%;
     height:0;
     padding-bottom: 80vh;
     -moz-border-radius: 50%;
@@ -39,6 +47,7 @@ html,body {
     border-color: green;
     opacity: 0.3;
     filter: alpha(opacity=40);
+    background: url('../images/rocks.jpg');
     background-size: cover;
 
 }
@@ -82,12 +91,23 @@ html,body {
 input.search-bar{
        border: 2px solid;
        border-radius: 25px;
-       margin-top: -8vh;
+       margin-top: 2vh;
 }
 .upload-button{
-    margin-left: 200%;
+    margin-left: 100%;
     position: relative;
+    width: 30vh;
+    height: 30vh;
     bottom: 12vh;
     left: 8vw;
+    
+}
+.upload-button img{
+    position: relative;
+    width: 50%;
+    height: 14vh;
+    bottom: 5vh;
+    left: 8vw;
+    cursor: pointer;
     
 }
